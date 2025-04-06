@@ -84,9 +84,8 @@
   <script>
     const catalogo = document.getElementById("catalogo");
 
-    const SHEET_ID = "1d_bXBvEzRq4l7Gt89wIuTMsJe0JQ4d4NwDr8y8Nwz7g";
-    const SHEET_TAB = "Produtos";
-    const SHEET_URL = `https://opensheet.elk.sh/${SHEET_ID}/${SHEET_TAB}`;
+    // Link direto da sua Web App publicada
+    const SHEET_URL = "https://script.google.com/macros/s/AKfycbyOCg8NMCMPCcs-jEw3VgzoY5qzVeeJjN7pc-gqSHyFah6PyK7zuniTSjhA3fkAMIwu/exec";
 
     fetch(SHEET_URL)
       .then(res => res.json())
@@ -100,7 +99,7 @@
             <h3>${produto.Nome}</h3>
             <p>${produto.Descrição}</p>
             <p><strong>${produto.Preço}</strong></p>
-            <a class="botao-whatsapp" target="_blank" href="https://wa.me/55SEUNUMEROAQUI?text=Olá, quero o produto: ${encodeURIComponent(produto.Nome)}">
+            <a class="botao-whatsapp" target="_blank" href="https://wa.me/5561998292241?text=Olá, quero o produto: ${encodeURIComponent(produto.Nome)}">
               Pedir via WhatsApp
             </a>
           `;
