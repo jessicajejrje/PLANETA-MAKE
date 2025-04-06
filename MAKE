@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PLANETA MAKE</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #fff0f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #e91e63;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 0 10px #ddd;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .card h3 {
+      margin: 10px 0 5px;
+    }
+
+    .card p {
+      font-size: 14px;
+      margin: 5px 0;
+    }
+
+    .botao-whatsapp {
+      display: inline-block;
+      background-color: #25d366;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #f8bbd0;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>PLANETA MAKE 💖</h1>
+  </header>
+
+  <main id="catalogo">
+    <p>Carregando produtos...</p>
+  </main>
+
+  <footer>
+    <p>Feito com 💄 por PLANETA MAKE</p>
+  </footer>
+
+  <script>
+    const catalogo = document.getElementById("catalogo");
+
+    const SHEET_ID = "1d_bXBvEzRq4l7Gt89wIuTMsJe0JQ4d4NwDr8y8Nwz7g";
+    const SHEET_TAB = "Produtos";
+    const SHEET_URL = `https://opensheet.elk.sh/${SHEET_ID}/${SHEET_TAB}`;
+
+    fetch(SHEET_URL)
+      .then(res => res.json())
+      .then(data => {
+        catalogo.innerHTML = "";
+        data.forEach(produto => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <img src="${produto['Imagem (URL)']}" alt="${produto.Nome}" />
+            <h3>${produto.Nome}</h3>
+            <p>${produto.Descrição}</p>
+            <p><strong>${produto.Preço}</strong></p>
+            <a class="botao-whatsapp" target="_blank" href="https://wa.me/55SEUNUMEROAQUI?text=Olá, quero o produto: ${encodeURIComponent(produto.Nome)}">
+              Pedir via WhatsApp
+            </a>
+          `;
+          catalogo.appendChild(card);
+        });
+      })
+      .catch(error => {
+        catalogo.innerHTML = "<p>Erro ao carregar os produtos 😢</p>";
+        console.error(error);
+      });
+  </script>
+</body>
+</html>
